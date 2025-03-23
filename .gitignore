@@ -1,0 +1,32 @@
+# Python virtual environments
+venv/
+env/
+ENV/
+.env
+
+# PyCharm/IntelliJ files
+.idea/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Log files
+*.log
+
+# Backup files
+*~
+*.bak
+
+# Local configuration
+.DS_Store
+Thumbs.db
+
+# Private files
+students.csv
