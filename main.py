@@ -1,5 +1,5 @@
 import os
-
+import io
 import requests
 import csv
 from datetime import datetime, timedelta, UTC
