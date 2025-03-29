@@ -1,0 +1,28 @@
+name: Run Student Notification Script
+
+on:
+  schedule:
+    - cron: '0 9 * * 2,4'
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.3'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run notification script
+        env:
+          CALENDLY_TOKEN: ${{ secrets.CALENDLY_TOKEN }}
+          CALENDLY_USER_URI: ${{ secrets.CALENDLY_USER_URI }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
+          STUDENTS_DATA: ${{ secrets.STUDENTS_DATA }}
+        run: python main.py

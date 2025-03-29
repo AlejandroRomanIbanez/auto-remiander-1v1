@@ -4,6 +4,9 @@ import requests
 import csv
 from datetime import datetime, timedelta, UTC
 from slack_bolt import App
+from dotenv import load_dotenv
+
+load_dotenv()
 
 CALENDLY_TOKEN = os.environ.get("CALENDLY_TOKEN")
 CALENDLY_USER_URI = os.environ.get("CALENDLY_USER_URI")
@@ -18,8 +21,9 @@ app = App(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
 
 def load_students():
     students = {}
-    with open("students.csv", "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+    csv_data = os.environ.get("STUDENTS_DATA")
+    if csv_data:
+        reader = csv.DictReader(io.StringIO(csv_data))
         for row in reader:
             students[row["name"]] = {
                 "email": row["email"].strip().lower(),
