@@ -55,7 +55,9 @@ except Exception as e:
 
 def load_students():
     students = {}
-    csv_data = os.environ.get("STUDENTS_DATA")
+    csv_data = os.environ.get("STUDENTS_DATA", "").replace("\\n", "\n")
+    log("Raw STUDENTS_DATA preview:")
+    print(csv_data)
 
     if not csv_data:
         log("ERROR: STUDENTS_DATA environment variable is not set")
@@ -63,7 +65,7 @@ def load_students():
 
     try:
         log(f"Parsing student data (length: {len(csv_data)} characters)")
-        csv_file = io.StringIO(csv_data)
+        csv_file = io.StringIO(csv_data.replace("\\n", "\n"))
         reader = csv.DictReader(csv_file)
 
         student_count = 0
