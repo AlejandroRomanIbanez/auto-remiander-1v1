@@ -56,8 +56,6 @@ except Exception as e:
 def load_students():
     students = {}
     csv_data = os.environ.get("STUDENTS_DATA", "").replace("\\n", "\n")
-    log("Raw STUDENTS_DATA preview:")
-    print(csv_data)
 
     if not csv_data:
         log("ERROR: STUDENTS_DATA environment variable is not set")
